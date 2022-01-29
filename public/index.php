@@ -19,8 +19,8 @@ $container['view'] = function ($container) {
 };
 
 
-$app->get('/', function($request, $response, $args) {
-    return $this->view->render($response, "index.html");
+$app->get('/index', function($request, $response, $args) {
+    return $this->view->render($response, "index.php");
 });
 
 
