@@ -24,9 +24,9 @@ $app->get('/', function($request, $response, $args) {
 });
 
 
-$app->get('/nothing', function ($request, $response, $args) {
+$app->get('/_book/get', function ($request, $response, $args) {
     try {
-        $sql = "SELECT * FROM ";
+        $sql = "SELECT * FROM _BOOK";
         $db = new Db();
 
         $db = $db->connect();
@@ -43,6 +43,69 @@ $app->get('/nothing', function ($request, $response, $args) {
         echo json_encode($data);
     }
 });
+
+$app->get('/_favourite_book/get', function($request, $response, $args) {
+    try {
+        $sql = "SELECT * FROM _FAVOURITE_BOOK";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
+
+$app->get('/_review/get', function ($request, $response, $args) {
+    try {
+        $sql = "SELECT * FROM _REVIEW";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
+
+$app->get('/_user/get', function ($request, $response, $args) {
+    try {
+        $sql = "SELECT * FROM _USER";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
 
 
 $app->run();

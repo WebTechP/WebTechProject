@@ -25,7 +25,7 @@ CREATE TABLE _FAVOURITE_BOOK(
     book_id VARCHAR(256) NOT NULL,
     user_id VARCHAR(256) NOT NULL,
     FOREIGN KEY (book_id) REFERENCES _BOOK(book_id),
-    FOREIGN KEY (user_id) REFERENCES _BOOK(user_id)
+    FOREIGN KEY (user_id) REFERENCES _USER(user_id)
 
 );
 
