@@ -6,6 +6,7 @@ CREATE TABLE _USER(
     last_name VARCHAR(256) NOT NULL,
     age INTEGER(1) NOT NULL,
     email_address VARCHAR(256) NOT NULL,
+    user_pass VARCHAR(256) NOT NULL,
     user_status INTEGER(1) NOT NULL
 );
 
