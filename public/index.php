@@ -24,10 +24,6 @@ $app->get('/index', function($request, $response, $args) {
 });
 
 
-$app->get('/review', function ($request, $response, $args) {
-    return $this->view->render($response, "book_view_review.php");
-});
-
 
 
 $app->get('/_book/get', function ($request, $response, $args) {
