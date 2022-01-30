@@ -13,6 +13,7 @@ CREATE TABLE _USER(
 CREATE TABLE _BOOK(
     book_id VARCHAR(256) NOT NULL PRIMARY KEY,
     book_title VARCHAR(256) NOT NULL,
+    book_description VARCHAR(256) NOT NULL,
     book_page INTEGER(21) NOT NULL,
     book_author VARCHAR(256) NOT NULL,
     book_ISBN VARCHAR(256)
