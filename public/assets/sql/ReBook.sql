@@ -4,7 +4,7 @@ CREATE TABLE _USER(
     user_id VARCHAR(256) NOT NULL PRIMARY KEY,
     first_name VARCHAR(256) NOT NULL,
     last_name VARCHAR(256) NOT NULL,
-    age INTEGER(1) NOT NULL,
+    age INTEGER(3) NOT NULL,
     email_address VARCHAR(256) NOT NULL,
     user_pass VARCHAR(256) NOT NULL,
     user_status INTEGER(1) NOT NULL

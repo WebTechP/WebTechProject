@@ -9,9 +9,9 @@
     <link href="assets/css/index.css" rel="stylesheet">
     <title>Document</title>
 </head>
-
+<!--  -->
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 mb-4 bg-body rounded">
+    <nav class="navbar navbar-expand-xxl navbar-light shadow-sm p-3 mb-4 bg-body rounded">
         <div class="container-fluid justify-content-center">
             <div class='row row-cols-auto'>
                 <div class='col'>
@@ -24,10 +24,10 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-2 mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                <button class="btn btn-sm me-2 btn-outline-secondary" type="button">Home</button>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">About</a>
+                                <button class="btn btn-sm me-2 btn-outline-secondary" type="button">About</button>
                             </li>
                             <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -51,18 +51,18 @@
                 <div class='col'>
                     <ul class="navbar-nav me-toggle mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Login</a>
+                            <button class="btn btn-sm me-2 btn-outline-secondary" type="button">Login  </button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sign Up</a>
+                            <button class="btn btn-sm me-2 btn-outline-secondary" type="button">Sign up</button>
                         </li>
                     </ul>
                 </div>
-                <div class='col-5'>
+                <div class='col-5 d-md-block'>
                     <!-- <div class='container-sm justify-content-end'> -->
                     <form class="d-flex">
                         <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                        <button class="btn btn-outline-secondary " type="submit">Search</button>
                     </form>
                     <!-- </div> -->
                 </div>
