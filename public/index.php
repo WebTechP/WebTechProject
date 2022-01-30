@@ -24,6 +24,12 @@ $app->get('/index', function($request, $response, $args) {
 });
 
 
+// $app->get('/', function ($request, $response, $args) {
+//     return $this->view->render($response, "index.php");
+// });
+
+
+
 $app->get('/_book/get', function ($request, $response, $args) {
     try {
         $sql = "SELECT * FROM _BOOK";

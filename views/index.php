@@ -52,8 +52,8 @@
                 <div class='container-sm justify-content-end'>
                     <div class='row'>
                         <form class="d-flex">
-                            <input class="form-control col-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-secondary col-3" type="submit">Search</button>
+                            <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-secondary" type="submit">Search</button>
                         </form>
                     </div>
                 </div>
