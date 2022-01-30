@@ -35,6 +35,7 @@ CREATE TABLE _REVIEW(
     review_id VARCHAR(256) NOT NULL PRIMARY KEY,
     user_review VARCHAR(256) NOT NULL,
     book_id VARCHAR(256) NOT NULL,
+    rating int(2) NOT NULL,
     FOREIGN KEY (book_id) REFERENCES _BOOK(book_id)
 
 );
