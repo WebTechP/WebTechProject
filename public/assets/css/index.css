@@ -1,0 +1,9 @@
+.center{
+    margin: 0 auto 0 auto;
+}
+
+.main{
+    width: 55%;
+    height: auto;
+    border: 1px solid red;
+}
