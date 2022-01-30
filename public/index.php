@@ -19,7 +19,7 @@ $container['view'] = function ($container) {
 };
 
 
-$app->get('/index', function($request, $response, $args) {
+$app->get('/index', function ($request, $response, $args) {
     return $this->view->render($response, "index.php");
 });
 
@@ -28,6 +28,12 @@ $app->get('/index', function($request, $response, $args) {
 //     return $this->view->render($response, "index.php");
 // });
 
+$app->get('/login', function ($request, $response, $args) {
+    return $this->view->render($response, "login.php");
+});
+$app->get('/register', function ($request, $response, $args) {
+    return $this->view->render($response, "register.php");
+});
 
 
 $app->get('/_book/get', function ($request, $response, $args) {
@@ -50,7 +56,7 @@ $app->get('/_book/get', function ($request, $response, $args) {
     }
 });
 
-$app->get('/_favourite_book/get', function($request, $response, $args) {
+$app->get('/_favourite_book/get', function ($request, $response, $args) {
     try {
         $sql = "SELECT * FROM _FAVOURITE_BOOK";
         $db = new Db();
