@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+// $_SESSION['limit'] = 0;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
@@ -21,6 +22,10 @@ $container['view'] = function ($container) {
 
 $app->get('/index', function ($request, $response, $args) {
     return $this->view->render($response, "index.php");
+});
+
+$app->get('/addReviews', function ($request, $response, $args) {
+    return $this->view->render($response, "addReview.php");
 });
 
 
@@ -54,6 +59,7 @@ $app->get('/profile', function ($request, $response, $args) {
     return $this->view->render($response, "profile.php");
 });
 
+
 $app->get('/login', function ($request, $response, $args) {
     return $this->view->render($response, "login.php");
 });
@@ -65,6 +71,27 @@ $app->get('/register', function ($request, $response, $args) {
 $app->get('/_book/get', function ($request, $response, $args) {
     try {
         $sql = "SELECT * FROM _BOOK";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
+$app->get('/_book/get/limits', function ($request, $response, $args) {
+    $input = $request->getQueryParams();
+    try {
+        $sql = "SELECT * FROM _BOOK LIMIT ,$input";
         $db = new Db();
 
         $db = $db->connect();
