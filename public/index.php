@@ -24,9 +24,7 @@ $app->get('/index', function ($request, $response, $args) {
 });
 
 
-// $app->get('/', function ($request, $response, $args) {
-//     return $this->view->render($response, "index.php");
-// });
+
 
 $app->get('/login', function ($request, $response, $args) {
     return $this->view->render($response, "login.php");
