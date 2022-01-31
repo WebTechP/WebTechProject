@@ -21,8 +21,8 @@ CREATE TABLE _BOOK(
 
 CREATE TABLE _FAVOURITE_BOOK(
     favourite_book_id VARCHAR(256) NOT NULL PRIMARY KEY,
-    title VARCHAR(256) NOT NULL,
-    book_name VARCHAR(256) NOT NULL,
+    book_title VARCHAR(256) NOT NULL,
+    book_description VARCHAR(256) NOT NULL,
     book_author VARCHAR(256) NOT NULL,
     book_id VARCHAR(256) NOT NULL,
     user_id VARCHAR(256) NOT NULL,
