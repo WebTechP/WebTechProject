@@ -6,7 +6,7 @@ $(window).on("load", function (){
     var url_ = document.location.pathname;
     var urlSplit = url_.split('/');
     // $("#demo").html(urlSplit[3]);
-    var id = urlSplit[3]; // this is the id of the user you take out of the url path
+    var id = urlSplit[3]; // this is the id of the book you take out of the url path
     var url = "http://localhost:8008/details/" + id;
     $.ajax({ 
         url: url,
@@ -40,7 +40,7 @@ $(window).on("load", function (){
                         additional content. This content is a little bit longer.</p>
                 </div>
             </div>
-            `);
+                `);
             });
          
         }
