@@ -25,14 +25,12 @@ $(window).on("load", function (){
                     <h6 class="card-subtitle mb-2 text-muted">Author : ${this['book_author']}</h6>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Total Pages : ${this['book_pages']}</li>
+                        <li class="list-group-item">Total Pages : ${this['book_page']}</li>
                         <li class="list-group-item mb-2">ISBN : ${this['book_ISBN']}</li>
                     </ul>
                     <button class="btn btn-primary"><i class="fa fa-star"></i></button>
                     <button class="btn btn-primary" onclick="addReview()">Add Reviews</button>
-                    <p class="card-text mt-4"> ${this['book_description']}
-                    </p>
-
+                    <p class="card-text mt-4"> ${this['book_description']}</p>
                 </div>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2">Reviews</h6>

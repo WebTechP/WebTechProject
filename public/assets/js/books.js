@@ -40,7 +40,7 @@
                                 <p class="card-text">${this['book_description']}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Number of Pages: ${this['book_page']}</li>
+                                <li class="list-group-item">Number of Pages: ${this['book_pages']}</li>
                                 <li class="list-group-item">Book Author: ${this['book_author']}</li>
                             </ul>
                             <div class="card-body">

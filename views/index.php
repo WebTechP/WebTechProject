@@ -17,7 +17,7 @@ session_start();
 
 <body>
 
-<div>{{json}}</div>
+
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 mb-4 bg-body rounded">
         <div class="container-lg justify-content-center">
             <!-- <div class='row row-cols-auto'> -->
@@ -34,10 +34,10 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-2 mb-lg-0">
                         <li class="nav-item">
-                            <button class="btn btn-sm me-4 btn-outline-secondary active" type="button">Home</button>
+                            <a class="btn btn-sm me-4 btn-outline-secondary active" href='http://localhost:8008/index' type="button">Home</a>
                         </li>
                         <li class="nav-item">
-                            <button class="btn btn-sm me-4 btn-outline-secondary" type="button">About</button>
+                            <a class="btn btn-sm me-4 btn-outline-secondary" type="button">About</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,10 +61,10 @@ session_start();
             <div class='col '>
                 <ul class="navbar-nav me-toggle ">
                     <li class="nav-item">
-                        <button class="btn btn-sm me-4 btn-outline-secondary" type="button">Login </button>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/login' type="button">Login </a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-sm me-4 btn-outline-secondary" type="button">Sign up</button>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/register' type="button">Sign up</a>
                     </li>
                 </ul>
             </div>
