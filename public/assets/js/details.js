@@ -1,4 +1,5 @@
 
+
 var bookDetails = $('#book_details');
 var url_ = document.location.pathname;
 var urlSplit = url_.split('/');
@@ -36,16 +37,14 @@ $(window).on("load", function (){
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2">Reviews</h6>
 
-                    <span style="font-size: 2em; color: yellow;"><i class="fa fa-star"></i></span>
+                    <span style="font-size: 2em; color: yellow; href="/_favourite_book/put/${this['book_id']}"><i class="fa fa-star"></i></span>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
                         additional content. This content is a little bit longer.</p>
                 </div>
             </div>
-                `);
-            });
-         
-        }
-    })
-
-    
+                `
+        );
+      });
+    },
+  });
 });
