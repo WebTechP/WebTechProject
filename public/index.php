@@ -207,6 +207,29 @@ $app->get('/_user/get', function ($request, $response, $args) {
     }
 });
 
+$app->get('/_user/login', function ($request, $response, $args) {
+    $input = $request->getParams();
+    $pass = $input['password'];
+    $email = $input['email']; 
+    try {
+
+        $sql = "SELECT * FROM _USER where user_pass = '$pass' AND email_address='$email'";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
 
 
 $app->run();

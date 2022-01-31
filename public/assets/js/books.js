@@ -31,7 +31,8 @@
                 var books = data;
                 length = books.length;
                 $.each(books, function(element){
-                    bookContainer.append(`
+                    bookContainer.append(
+                        `
                     <div class="col">
                         <div class="card mb-3" style="width: 18rem;">
                            <!-- <img src="..." class="card-img-top" alt="..."> -->

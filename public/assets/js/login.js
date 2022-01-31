@@ -68,5 +68,14 @@ $(function () {
       event.stopPropagation();
     }
     form.addClass('was-validated');
+
+    // $.ajax({
+    //   type: "POST",
+    //   data: $(this).serialize(),
+    //   dataType: 'json',
+    //   success: function(){
+
+    //   }
+    // });
   });
 });
