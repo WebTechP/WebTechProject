@@ -17,7 +17,13 @@ $('.my-form-validation').on('submit', function(){
         contentType: "application/x-www-form-urlencoded",
         dataType: "json", 
         success: function(data) {
-            
+            if (data['status'] == 'success') {
+                var temp = "http://localhost:8008/login";
+                window.location.href = temp;
+                // $(location).attr('href', '' + temp);
+            } else {
+                console.log("error");
+            } 
         }
 
 
