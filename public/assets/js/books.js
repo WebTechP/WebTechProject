@@ -12,7 +12,7 @@
 // console.log("document.location.pathname : " + document.location.pathname);
 
     $(window).on("load", function (){
-        var url = "http://localhost:8008/_book/get/limits?offset="+offset+"&limit=" + limit; 
+        var url = "https://afternoon-forest-36865.herokuapp.com/_book/get/limits?offset="+offset+"&limit=" + limit; 
           
         $.ajax({
             type: "GET",
@@ -45,7 +45,7 @@
                                 <li class="list-group-item">Book Author: ${this['book_author']}</li>
                             </ul>
                             <div class="card-body">
-                                <a href="http://localhost:8008/details/screen/${this['book_id']}" class="card-link">Book Details</a>
+                                <a href="https://afternoon-forest-36865.herokuapp.com/details/screen/${this['book_id']}" class="card-link">Book Details</a>
                             </div>
                         </div>
                     </div>

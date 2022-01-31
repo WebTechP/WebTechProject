@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/index' type="button">Home</a>
+                            <a class="btn btn-sm me-4 btn-outline-secondary" href='https://afternoon-forest-36865.herokuapp.com/index' type="button">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-sm me-4 btn-outline-secondary" type="button">About</a>
@@ -58,10 +58,10 @@
             <div class='col '>
                 <ul class="navbar-nav me-toggle ">
                     <li class="nav-item">
-                        <a class="btn btn-sm me-4 btn-outline-secondary active" href='http://localhost:8008/login' type="button">Login </a>
+                        <a class="btn btn-sm me-4 btn-outline-secondary active" href='https://afternoon-forest-36865.herokuapp.com/login' type="button">Login </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/register' type="button">Sign up</a>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='https://afternoon-forest-36865.herokuapp.com/register' type="button">Sign up</a>
                     </li>
                 </ul>
             </div>
