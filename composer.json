@@ -4,7 +4,7 @@
         "slim/twig-view": "2.1",
         "alrik11es/cowsayphp": "^1.2",
         "silex/silex": "^2.3"
-        }
+        },
   "post-install-cmd": [
     "php artisan clear-compiled",
     "chmod -R 777 public/"
