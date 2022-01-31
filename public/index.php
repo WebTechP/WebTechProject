@@ -48,13 +48,13 @@ $app->get('/details/screen/{id}', function ($request, $response, $args){
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $this->view->render($response, "details.html");
+        return $this->view->render($response, "details.php");
     } catch (PDOException $e) {
         $data = array(
             "status" => "error",
         );
 
-        return $this->view->render($response, "details.html");
+        return $this->view->render($response, "details.php");
     }
 });
 
