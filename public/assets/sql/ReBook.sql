@@ -22,16 +22,12 @@ CREATE TABLE _BOOK(
 CREATE TABLE _FAVOURITE_BOOK(
     favourite_book_id VARCHAR(256) NOT NULL PRIMARY KEY,
     book_title VARCHAR(256) NOT NULL,
-<<<<<<< HEAD
-=======
     book_description VARCHAR(256) NOT NULL,
->>>>>>> 7426dd2d917623c149770b9f164f974b99cebdfd
     book_author VARCHAR(256) NOT NULL,
     book_id VARCHAR(256) NOT NULL,
     user_id VARCHAR(256) NOT NULL,
     FOREIGN KEY (book_id) REFERENCES _BOOK(book_id),
     FOREIGN KEY (user_id) REFERENCES _USER(user_id)
-
 );
 
 CREATE TABLE _REVIEW(

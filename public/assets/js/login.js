@@ -1,4 +1,6 @@
-'use strict';
+// 'use strict';
+var popup = $('#popup');
+// popup.hide();
 
 $(function () {
   $("input[type='password'][data-eye]").each(function (i) {
@@ -61,26 +63,31 @@ $(function () {
     });
   });
 
-  $('.my-login-validation').submit(function () {
+  $('.my-login-validation').on('submit', function () {
     var form = $(this);
-    if (form[0].checkValidity() === false) {
+    // if (form[0].checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
-    form.addClass('was-validated');
+    // }
+    // form.addClass('was-validated');
 
     $.ajax({
-      type: "POST",
-      data: $('.my-login-validation').serialize(),
-      dataType: 'x-www-form-urlencoded',
+      type: "GET",
+      url: "http://localhost:8008/_user/login",
+      data: form.serialize(),
+      contentType: "application/x-www-form-urlencoded",
+      dataType: 'json',
       success: function(data){ 
-        var parsedData= JSON.parse(data);
 
-        if(parsedData['status'] == 'success') {
-
-        }else{ 
-
-        }
+        if (data['status'] == 'success') {
+          var temp = "http://localhost:8008/login";
+          window.location.href = temp;
+          // $(location).attr('href', '' + temp);
+        } else {
+          console.log("error");
+        } data;
+        // $("#demo").html(data[0]);
+       
       }
     
     

@@ -265,4 +265,68 @@ $app->get('/_user/login', function ($request, $response, $args) {
 });
 
 
+
+
+$app->post('/_user/register', function ($request, $response, $args) {
+    $input = $request->getParams();
+    try{
+
+
+        $str1 = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ";
+        $str2 = "0123456789";
+        $str3 = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
+
+        do {
+            $postid1 = substr(str_shuffle($str1), 0, 7);
+            $postid2 = substr(str_shuffle($str2), 0, 5);
+            $postid3 = substr(str_shuffle($str3), 0, 1);
+            $postid4 = substr(str_shuffle($str3), 0, 5);
+
+
+            $fullpostid = $postid3 . $postid1 . "_" . $postid2 . "_" . $postid4; // this is the Post_Id
+            $sql = "SELECT * FROM _USER WHERE user_id ='$fullpostid'";
+            
+            $db = new Db();
+
+            $db = $db->connect();
+            $stmt = $db->prepare($sql);
+            $stmt->execute();
+
+        } while ($stmt->rowCount() > 0);
+
+
+        $sql = "INSERT INTO _USER(user_id, first_name, last_name, age, email_address, user_pass, user_status) 
+        VALUES(?,?,?,?,?,?,?)";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $data = $stmt->execute([$fullpostid, $input['firstname'], $input['lastname'], $input['age'], $input['email'], $input['password'], 0]);
+         
+        if($data){
+            $data = array(
+                "status" => "success",
+            );
+
+            echo json_encode($data);
+        }else{
+            $data = array(
+                "status" => "error",
+            );
+
+            echo json_encode($data);
+        }
+        
+
+    }catch(PDOException $e){
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+
+});
+
+
 $app->run();
