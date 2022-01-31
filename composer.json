@@ -1,20 +1,14 @@
 {
-<<<<<<< HEAD
-  "require": {
-    "slim/slim": "3.*",
-    "slim/twig-view": "2.1"
-  },
-  "post-install-cmd": [
-    "php artisan clear-compiled",
-    "chmod -R 777 public/"
-  ]
-}
-=======
-    "require": {
+   "require": {
         "slim/slim": "3.*",
         "slim/twig-view": "2.1",
         "alrik11es/cowsayphp": "^1.2",
         "silex/silex": "^2.3"
         }
-    }
->>>>>>> ee92a9c766d5838f28f3410559b028d6343c479b
+  "post-install-cmd": [
+    "php artisan clear-compiled",
+    "chmod -R 777 public/"
+  ]
+}
+    
+    
