@@ -69,13 +69,21 @@ $(function () {
     }
     form.addClass('was-validated');
 
-    // $.ajax({
-    //   type: "POST",
-    //   data: $(this).serialize(),
-    //   dataType: 'json',
-    //   success: function(){
+    $.ajax({
+      type: "POST",
+      data: $('.my-login-validation').serialize(),
+      dataType: 'x-www-form-urlencoded',
+      success: function(data){ 
+        var parsedData= JSON.parse(data);
 
-    //   }
-    // });
+        if(parsedData['status'] == 'success') {
+
+        }else{ 
+
+        }
+      }
+    
+    
+    });
   });
 });

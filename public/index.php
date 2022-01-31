@@ -242,9 +242,19 @@ $app->get('/_user/login', function ($request, $response, $args) {
         $db = $db->connect();
         $stmt = $db->prepare($sql);
         $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        echo json_encode($data);
+        if($stmt->rowCount() > 0){
+            $data = array(
+            "status" => "success",
+                );
+            echo json_encode($data);
+        }else{
+            $data = array(
+                "status" => "error",
+            );
+            echo json_encode($data);
+        }
+
     } catch (PDOException $e) {
         $data = array(
             "status" => "error",
