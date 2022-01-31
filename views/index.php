@@ -83,7 +83,7 @@ session_start();
 
     <div class="main center">
         <div class="container">
-            <div class="row gx-xl-0" id='books-container'>
+            <div class="row row-cols-auto" id='books-container'>
                 <div class="col content-loader-0">
                     <div class="card" aria-hidden="true" style="width: 18rem;">
                         <!-- <img src="..." class="card-img-top" alt="..."> -->

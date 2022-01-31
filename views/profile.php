@@ -59,9 +59,6 @@
 
         <div class="container h-100">
 
-
-
-
             <div class="container">
                 <div class="row justify-content-md-center h-90">
 

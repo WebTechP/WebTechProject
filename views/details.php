@@ -14,7 +14,6 @@
 
 <body>
 
-
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3 mb-4 bg-body rounded">
         <div class="container-lg justify-content-center">
             <!-- <div class='row row-cols-auto'> -->
@@ -32,7 +31,7 @@
                             <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/index' type="button">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-sm me-4 btn-outline-secondary" href='#' type="button">About</a>
+                            <a class="btn btn-sm me-4 btn-outline-secondary" type="button">About</a>
                         </li>
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,10 +55,10 @@
             <div class='col '>
                 <ul class="navbar-nav me-toggle ">
                     <li class="nav-item">
-                        <button class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/login' type="button">Login </button>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/login' type="button">Login </a>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/register' type="button">Sign up</button>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/register' type="button">Sign up</a>
                     </li>
                 </ul>
             </div>
