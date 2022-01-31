@@ -165,6 +165,29 @@ $app->get('/_favourite_book/get', function ($request, $response, $args) {
     }
 });
 
+$app->post('/_favourite_book/{id}', function ($request, $response, $args) {
+        $id = $args['id'];
+        try {
+            $sql = "INSERT INTO  _FAVOURITE_BOOK (book_title, book_description, book_author, book_id) 
+            SELECT  book_title,  book_description,book_author,book_id  FROM _BOOK
+             where book_id=:id";
+
+            $db = new Db();
+    
+            $db = $db->connect();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($data);
+
+        } catch (PDOException $e) {
+            $data = array(
+                "status" => "error",
+            );
+    
+        }
+});
 
 $app->get('/_review/get', function ($request, $response, $args) {
     try {
