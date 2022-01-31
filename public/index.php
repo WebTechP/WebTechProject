@@ -21,12 +21,18 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+<<<<<<< HEAD
 $app->get('/index', function ($request, $response, $args) {
     return $this->view->render($response, "index.html");
 });
 
 $app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, "index.html");
+=======
+
+$app->get('/', function ($request, $response, $args) {
+    return $this->view->render($response, "index.php");
+>>>>>>> 8bc7502c40e3c0957c3158d9efdcf52459b25430
 });
 
 
