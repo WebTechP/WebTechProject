@@ -3,7 +3,9 @@ session_start();
 // $_SESSION['limit'] = 0;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-
+use SlimBuild\Helper\Password;
+use SlimBuild\Helper\Session;
+use SlimBuild\Model\User;
 
 require "../vendor/autoload.php";
 require_once "./db.php";
@@ -30,6 +32,30 @@ $app->get('/index', function ($request, $response, $args) {
 // });
 
 
+$app->get('/details/screen/{id}', function ($request, $response, $args){
+    $id = $args['id'];
+    try {
+        $sql = "SELECT * FROM _BOOK where book_id=:id";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $this->view->render($response, "details.html");
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        return $this->view->render($response, "details.html");
+    }
+});
+
+
+
 $app->get('/details/{id}', function ($request, $response, $args) {
     $id = $args['id'];
     try {
@@ -49,7 +75,6 @@ $app->get('/details/{id}', function ($request, $response, $args) {
         );
 
         echo json_encode($data);
-        
     }
 });
 
@@ -85,8 +110,10 @@ $app->get('/_book/get', function ($request, $response, $args) {
 
 $app->get('/_book/get/limits', function ($request, $response, $args) {
     $input = $request->getQueryParams();
+    $limit = $input['limit'];
+    $offset = $input['offset']; 
     try {
-        $sql = "SELECT * FROM _BOOK LIMIT ,$input";
+        $sql = "SELECT * FROM _BOOK LIMIT $offset,$limit";
         $db = new Db();
 
         $db = $db->connect();
