@@ -26,6 +26,10 @@ $app->get('/index', function ($request, $response, $args) {
     return $this->view->render($response, "index.php");
 });
 
+$app->get('/addReviews', function ($request, $response, $args) {
+    return $this->view->render($response, "addReview.php");
+});
+
 
 // $app->get('/details/{id}', function ($request, $response, $args) {
 //     return $this->view->render($response, "details.php");
@@ -77,7 +81,9 @@ $app->get('/details/{id}', function ($request, $response, $args) {
         echo json_encode($data);
     }
 });
-
+$app->get('/profile', function ($request, $response, $args) {
+    return $this->view->render($response, "profile.php");
+});
 
 
 $app->get('/login', function ($request, $response, $args) {

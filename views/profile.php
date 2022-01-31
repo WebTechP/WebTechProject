@@ -9,10 +9,11 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <link href="assets/css/login.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link href="assets/css/index.css" rel="stylesheet">
     <link href="assets/css/footer.css" rel="stylesheet">
+
+
 
     <title>Document</title>
 </head>
@@ -61,48 +62,20 @@
     <section class="h-100">
 
         <div class="container h-100">
-            <div class="row justify-content-md-center h-100">
-                <div class="card-wrapper">
-                    <div class="card fat">
-                        <div class="card-body">
-                            <h4 class="card-title">Login</h4>
-                            <form method="POST" class="my-login-validation" novalidate="">
-                                <div class="form-group">
-                                    <label for="email">E-Mail </label>
-                                    <input id="email" type="email" class="form-control" name="email" value="" required
-                                        autofocus>
-                                    <div class="invalid-feedback">
-                                        Email is invalid
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="password">Password </label>
-                                    <input id="password" type="password" class="form-control" name="password" required
-                                        data-eye>
-                                    <div class="invalid-feedback">
-                                        Password is required
-                                    </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <div class="custom-checkbox custom-control">
-                                        <input type="checkbox" name="remember" id="remember"
-                                            class="custom-control-input">
-                                        <label for="remember" class="custom-control-label">Remember Me</label>
-                                    </div>
-                                </div>
 
-                                <div class="form-group m-0 mt-2">
-                                    <button type="submit" class="btn btn-primary btn-block">
-                                        Login
-                                    </button>
-                                </div>
-                                <div class="mt-4 text-center">
-                                    Don't have an account? <a href="/register">Create One</a>
-                                </div>
-                            </form>
-                        </div>
+
+            <div class="container">
+                <div class="row justify-content-md-center h-90">
+
+                    <div class="card" style="width:40%; height: 30%">
+
+                        <img
+                            src="https://www.seekpng.com/png/detail/966-9665493_my-profile-icon-blank-profile-image-circle.png">
+                        <h1>John Doe</h1>
+                        <p class="title">CEO & Founder, Example</p>
+                        <p>Harvard University</p>
                     </div>
 
                 </div>
@@ -140,7 +113,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
-    <script src="assets/js/login.js"></script>
 </body>
 
 </html>
