@@ -3,10 +3,10 @@
 
 class Db
 {
-    private $username = "root";
-    private $password = "";
-    private $dbname = "ReBook";
-    private $host = "localhost";
+    private $username = "J7IR3t8NxI";
+    private $password = "DyZKIlEJ8f";
+    private $dbname = "J7IR3t8NxI";
+    private $host = "remotemysql.com";
     private $port = "3306";
 
     public function connect()
