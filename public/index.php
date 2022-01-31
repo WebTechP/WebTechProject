@@ -21,10 +21,14 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-
 $app->get('/index', function ($request, $response, $args) {
-    return $this->view->render($response, "index.php");
+    return $this->view->render($response, "index.html");
 });
+
+$app->get('/', function ($request, $response, $args) {
+    return $this->view->render($response, "index.html");
+});
+
 
 $app->get('/addReviews', function ($request, $response, $args) {
     return $this->view->render($response, "addReview.php");

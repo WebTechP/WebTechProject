@@ -80,12 +80,12 @@ $(function () {
       success: function(data){ 
 
         if (data['status'] == 'success') {
-          var temp = "http://localhost:8008/login";
+          var temp = "http://localhost:8008/index";
           window.location.href = temp;
           // $(location).attr('href', '' + temp);
         } else {
           console.log("error");
-        } data;
+        } 
         // $("#demo").html(data[0]);
        
       }
