@@ -21,100 +21,87 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$app->get('/index', function ($request, $response, $args) {
-    return $this->view->render($response, "index.php");
-});
+
+//////////////////////////////////// HTML RENDERING START //////////////////////////////////////////////
 
 $app->get('/', function ($request, $response, $args) {
     return $this->view->render($response, "index.php");
 });
 
-
-$app->get('/addReviews', function ($request, $response, $args) {
-    return $this->view->render($response, "addReview.php");
+$app->get('/index', function ($request, $response, $args) {
+    return $this->view->render($response, "index.php");
 });
 
-
-// $app->get('/details/{id}', function ($request, $response, $args) {
-//     return $this->view->render($response, "details.php");
-// });
-
-
-$app->get('/details/screen/{id}', function ($request, $response, $args){
-    $id = $args['id'];
-    try {
-        $sql = "SELECT * FROM _BOOK where book_id=:id";
-        $db = new Db();
-
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        return $this->view->render($response, "details.php");
-    } catch (PDOException $e) {
-        $data = array(
-            "status" => "error",
-        );
-
-        return $this->view->render($response, "details.php");
-    }
+$app->get('/login', function ($request, $response, $args) {
+    return $this->view->render($response, "login.php");
 });
-
-
-
-$app->get('/details/{id}', function ($request, $response, $args) {
-    $id = $args['id'];
-    try {
-        $sql = "SELECT * FROM _BOOK where book_id=:id";
-        $db = new Db();
-
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        echo json_encode($data);
-    } catch (PDOException $e) {
-        $data = array(
-            "status" => "error",
-        );
-
-        echo json_encode($data);
-    }
-});
-
-// $app->get('/details[/{book_id}[/{user_id}]]', function ($request, $response, $args) {
-//     // responds to `/news`, `/news/2016` and `/news/2016/03`
-
-//     return $response;
-// });
-
 
 $app->get('/profile', function ($request, $response, $args) {
     return $this->view->render($response, "profile.php");
 });
 
-
-$app->get('/login', function ($request, $response, $args) {
-    return $this->view->render($response, "login.php");
-});
 $app->get('/register', function ($request, $response, $args) {
     return $this->view->render($response, "register.php");
 });
 
+$app->get('/addReviews', function ($request, $response, $args) {
+    return $this->view->render($response, "addReview.php");
+});
 
-$app->get('/_book/get', function ($request, $response, $args) {
+//////////////////////////////////// HTML RENDERING END //////////////////////////////////////////////
+
+
+
+
+
+
+
+//////////////////////////////////// GET METHODS START//////////////////////////////////////////////
+
+
+$app->get('/details/screen/{id}', function ($request, $response, $args) {
+    $id = $args['id'];
     try {
-        $sql = "SELECT * FROM _BOOK";
+        $sql = "SELECT * FROM _BOOK where book_id=:id";
         $db = new Db();
 
         $db = $db->connect();
         $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id);
         $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $bookData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $sql = "SELECT * FROM _REVIEW WHERE book_id=:id";
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $reviewsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $allData = array(
+            "status" => "success",
+            "bookDetails" => $bookData,
+            "userReviews" => $reviewsData,
+        );
+        echo json_encode($allData);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
+
+
+$app->get('/_book/get', function ($request, $response, $args) {
+    try {
+
+        $db = new Db();
+        $data = $db->getBook();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -129,7 +116,7 @@ $app->get('/_book/get', function ($request, $response, $args) {
 $app->get('/_book/get/limits', function ($request, $response, $args) {
     $input = $request->getQueryParams();
     $limit = $input['limit'];
-    $offset = $input['offset']; 
+    $offset = $input['offset'];
     try {
         $sql = "SELECT * FROM _BOOK LIMIT $offset,$limit";
         $db = new Db();
@@ -151,13 +138,9 @@ $app->get('/_book/get/limits', function ($request, $response, $args) {
 
 $app->get('/_favourite_book/get', function ($request, $response, $args) {
     try {
-        $sql = "SELECT * FROM _FAVOURITE_BOOK";
-        $db = new Db();
 
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $db = new Db();
+        $data = $db->getFavouriteBook();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -169,39 +152,11 @@ $app->get('/_favourite_book/get', function ($request, $response, $args) {
     }
 });
 
-$app->post('/_favourite_book/{id}', function ($request, $response, $args) {
-        $id = $args['id'];
-        try {
-            $sql = "INSERT INTO  _FAVOURITE_BOOK (book_title, book_description, book_author, book_id) 
-            SELECT  book_title,  book_description,book_author,book_id  FROM _BOOK
-             where book_id=:id";
-
-            $db = new Db();
-    
-            $db = $db->connect();
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
-            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            echo json_encode($data);
-
-        } catch (PDOException $e) {
-            $data = array(
-                "status" => "error",
-            );
-    
-        }
-});
 
 $app->get('/_review/get', function ($request, $response, $args) {
     try {
-        $sql = "SELECT * FROM _REVIEW";
         $db = new Db();
-
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $db->getReview();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -233,6 +188,8 @@ $app->get('/_user/get', function ($request, $response, $args) {
         echo json_encode($data);
     }
 });
+
+
 
 $app->get('/_user/login', function ($request, $response, $args) {
     $input = $request->getParams();
@@ -268,6 +225,43 @@ $app->get('/_user/login', function ($request, $response, $args) {
     }
 });
 
+//////////////////////////////////// GET METHODS END //////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////////////// POST METHODS START //////////////////////////////////////////////
+
+
+$app->post('/_favourite_book/insert/{id}', function ($request, $response, $args) {
+    $id = $args['id'];
+    try {
+        $sql = "INSERT INTO  _FAVOURITE_BOOK (book_title, book_description, book_author, book_id) 
+            SELECT  book_title,  book_description,book_author,book_id  FROM _BOOK
+             where book_id=:id";
+
+        $db = new Db();
+
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($data);
+    } catch (PDOException $e) {
+        $data = array(
+            "status" => "error",
+        );
+    }
+});
 
 
 
@@ -305,7 +299,8 @@ $app->post('/_user/register', function ($request, $response, $args) {
 
         $db = $db->connect();
         $stmt = $db->prepare($sql);
-        $data = $stmt->execute([$fullpostid, $input['firstname'], $input['lastname'], $input['age'], $input['email'], $input['password'], 0]);
+        $data = $stmt->execute([$fullpostid, $input['firstname'], 
+        $input['lastname'], $input['age'], $input['email'], $input['password'], 0]);
          
         if($data){
             $data = array(
@@ -333,4 +328,23 @@ $app->post('/_user/register', function ($request, $response, $args) {
 });
 
 
+
+//////////////////////////////////// POST METHODS END //////////////////////////////////////////////
+
+
+
 $app->run();
+
+
+
+//////////////////////////////////// LEGACY CODE START //////////////////////////////////////////////
+
+
+// $app->get('/details[/{book_id}[/{user_id}]]', function ($request, $response, $args) {
+//     // responds to `/news`, `/news/2016` and `/news/2016/03`
+
+//     return $response;
+// });
+
+
+//////////////////////////////////// LEGACY CODE END //////////////////////////////////////////////

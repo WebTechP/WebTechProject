@@ -12,13 +12,13 @@ $('.my-form-validation').on('submit', function(){
 
     $.ajax({
         type: "POST",
-        url: "https://afternoon-forest-36865.herokuapp.com/_user/register",
+        url: "http://localhost:8008/_user/register",
         data: data,
         contentType: "application/x-www-form-urlencoded",
         dataType: "json", 
         success: function(data) {
             if (data['status'] == 'success') {
-                var temp = "https://afternoon-forest-36865.herokuapp.com/login";
+                var temp = "http://localhost:8008/login";
                 window.location.href = temp;
                 // $(location).attr('href', '' + temp);
             } else {

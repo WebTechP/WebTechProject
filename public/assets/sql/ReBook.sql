@@ -41,10 +41,14 @@ CREATE TABLE _REVIEW(
 );
 
 
+CREATE TABLE _USER_IMAGE(
+    user_image_id VARCHAR(256) NOT NULL,
+);
 
 
-
-
+CREATE TABLE _BOOK_IMAGE(
+    book_image_id VARCHAR(256) NOT NULL,
+);
 
 
 

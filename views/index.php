@@ -33,7 +33,7 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="btn btn-sm me-4 btn-outline-secondary active" href='https://afternoon-forest-36865.herokuapp.com/index' type="button">Home</a>
+                            <a class="btn btn-sm me-4 btn-outline-secondary active" href='http://localhost:8008/index' type="button">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-sm me-4 btn-outline-secondary" type="button">About</a>
@@ -60,10 +60,10 @@ session_start();
             <div class='col '>
                 <ul class="navbar-nav me-toggle ">
                     <li class="nav-item">
-                        <a class="btn btn-sm me-4 btn-outline-secondary" href='https://afternoon-forest-36865.herokuapp.com/login' type="button">Login </a>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/login' type="button">Login </a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-sm me-4 btn-outline-secondary" href='https://afternoon-forest-36865.herokuapp.com/register' type="button">Sign up</a>
+                        <a class="btn btn-sm me-4 btn-outline-secondary" href='http://localhost:8008/register' type="button">Sign up</a>
                     </li>
                 </ul>
             </div>
@@ -83,6 +83,68 @@ session_start();
     <div class="main center">
         <div class="container">
             <div class="row row-cols-auto" id='books-container'>
+                <div class="col content-loader-0">
+                    <div class="card" aria-hidden="true" style="width: 18rem;">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col content-loader-0">
+                    <div class="card" aria-hidden="true" style="width: 18rem;">
+                        <!-- <img src="..." class="card-img-top" alt="..."> -->
+                        <div class="card-body">
+                            <h5 class="card-title placeholder-glow">
+                                <span class="placeholder col-6"></span>
+                            </h5>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-6"></span>
+                                <span class="placeholder col-8"></span>
+                            </p>
+                            <p class="card-text placeholder-glow">
+                                <span class="placeholder col-7"></span>
+                                <span class="placeholder col-4"></span>
+                                <span class="placeholder col-4"></span>
+                            </p>
+                            <a href="#" tabindex="-1" class="btn btn-primary disabled placeholder col-6"></a>
+                        </div>
+                    </div>
+
+                </div>
                 <div class="col content-loader-0">
                     <div class="card" aria-hidden="true" style="width: 18rem;">
                         <!-- <img src="..." class="card-img-top" alt="..."> -->

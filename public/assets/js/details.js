@@ -5,7 +5,7 @@ var url_ = document.location.pathname;
 var urlSplit = url_.split('/');
 // $("#demo").html(urlSplit[3]);
 var id = urlSplit[3]; // this is the id of the book you take out of the url path
-var url = "https://afternoon-forest-36865.herokuapp.com/details/" + id;
+var url = "http://localhost:8008/details/" + id;
 
 $(window).on("load", function (){ 
     // location
