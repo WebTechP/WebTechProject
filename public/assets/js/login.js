@@ -73,14 +73,15 @@ $(function () {
 
     $.ajax({
       type: "GET",
-      url: "https://afternoon-forest-36865.herokuapp.com/_user/login",
+      url: "http://localhost:8008/_user/login",
       data: form.serialize(),
       contentType: "application/x-www-form-urlencoded",
       dataType: 'json',
       success: function(data){ 
-
+        var userData;
         if (data['status'] == 'success') {
-          var temp = "https://afternoon-forest-36865.herokuapp.com/index";
+          userData = data['userData'];
+          var temp = "http://localhost:8008/index";
           window.location.href = temp;
           // $(location).attr('href', '' + temp);
         } else {

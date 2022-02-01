@@ -1,6 +1,8 @@
 <?php
-session_start();
-// $_SESSION['limit'] = 0;
+
+//////////////////////////////////// SLIM SETUP START //////////////////////////////////////////////
+
+
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use SlimBuild\Helper\Password;
@@ -20,6 +22,16 @@ $container['view'] = function ($container) {
     ]);
     return $view;
 };
+
+
+//////////////////////////////////// SLIM SETUP END //////////////////////////////////////////////
+
+
+
+
+
+
+
 
 
 //////////////////////////////////// HTML RENDERING START //////////////////////////////////////////////
@@ -205,8 +217,10 @@ $app->get('/_user/login', function ($request, $response, $args) {
         $stmt->execute();
 
         if($stmt->rowCount() > 0){
+            $userData = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $data = array(
             "status" => "success",
+            "userData" => $userData,
                 );
             echo json_encode($data);
         }else{
@@ -264,24 +278,19 @@ $app->post('/_favourite_book/insert/{id}', function ($request, $response, $args)
 });
 
 
-
 $app->post('/_user/register', function ($request, $response, $args) {
     $input = $request->getParams();
+     
     try{
-
-
-        $str1 = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ";
-        $str2 = "0123456789";
-        $str3 = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
-
+        // this code will see if the insertion was for adming or the user
+        !$input['user_status'] 
+        ? $userStatus = 0 
+        : $userStatus = $input['user_status']; 
+        
+        // this code will choose the right id for the user
         do {
-            $postid1 = substr(str_shuffle($str1), 0, 7);
-            $postid2 = substr(str_shuffle($str2), 0, 5);
-            $postid3 = substr(str_shuffle($str3), 0, 1);
-            $postid4 = substr(str_shuffle($str3), 0, 5);
-
-
-            $fullpostid = $postid3 . $postid1 . "_" . $postid2 . "_" . $postid4; // this is the Post_Id
+       
+            $fullpostid = getId(); // this is the Post_Id
             $sql = "SELECT * FROM _USER WHERE user_id ='$fullpostid'";
             
             $db = new Db();
@@ -300,10 +309,10 @@ $app->post('/_user/register', function ($request, $response, $args) {
         $db = $db->connect();
         $stmt = $db->prepare($sql);
         $data = $stmt->execute([$fullpostid, $input['firstname'], 
-        $input['lastname'], $input['age'], $input['email'], $input['password'], 0]);
+        $input['lastname'], $input['age'], $input['email'], $input['password'], $userStatus]);
          
         if($data){
-            $data = array(
+            $data = array(      
                 "status" => "success",
             );
 
@@ -329,11 +338,66 @@ $app->post('/_user/register', function ($request, $response, $args) {
 
 
 
+$app->post("/_book/insert", function ($request, $response, array $args) {
+    $input = $request->getParams();
+
+    try{
+        
+        $data = array(
+                "status" => "success",
+            );
+
+        echo json_encode($data);
+    }catch(PDOException $e){
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+});
+
+
 //////////////////////////////////// POST METHODS END //////////////////////////////////////////////
 
 
 
 $app->run();
+
+
+
+//////////////////////////////////// USEFUL FUNCTIONS //////////////////////////////////////////////
+
+
+function getId()
+{
+    $str1 = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ";
+    $str2 = "0123456789";
+    $str3 = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
+    $postid1 = substr(str_shuffle($str1), 0, 7);
+    $postid2 = substr(str_shuffle($str2), 0, 5);
+    $postid3 = substr(str_shuffle($str3), 0, 1);
+    $postid4 = substr(str_shuffle($str3), 0, 5);
+
+    return $postid3 . $postid1 . "_" . $postid2 . "_" . $postid4;
+}
+
+
+//////////////////////////////////// USEFUL FUNCTIONS //////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -43,6 +43,11 @@ CREATE TABLE _REVIEW(
 
 CREATE TABLE _USER_IMAGE(
     user_image_id VARCHAR(256) NOT NULL,
+    user_image_name VARCHAR(256) NOT NULL,
+    user_image_extension VARCHAR(256) NOT NULL,
+    user_image_dir VARCHAR(256) NOT NULL,
+    user_id VARCHAR(256) NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES _USER(user_id)
 );
 
 
