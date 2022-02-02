@@ -31,56 +31,63 @@ class Db
     private $host = "localhost";
     private $port = "3306";
 
-    public function connect()
-    {
+    public function connect(){
         $conn = new PDO("mysql:host=$this->host;
                 port=$this->port;dbname=$this->dbname;", $this->username, $this->password);
 
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         return $conn;
+    }   
+
+    public function fetch(string $sql){
+        $db = $this->connect();
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getReview(){
+    public function getReviews(){
         $sql = "SELECT * FROM _REVIEW";
-        $db = $this->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->fetch($sql);
     }
-    public function getBook()
-    {
+    public function getBooks(){
         $sql = "SELECT * FROM _BOOK";
-        $db = $this->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->fetch($sql);
     }
 
-    public function getUser()
-    {
+    public function getUsers(){
         $sql = "SELECT * FROM _USER";
-        $db = $this->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->fetch($sql);
     }
-    public function getFavouriteBook()
-    {
+
+    public function getFavouriteBooks(){
         $sql = "SELECT * FROM _USER";
-        $db = $this->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->fetch($sql);
     }
-    public function _getFavouriteBook(string $id)
-    {
+
+
+
+    // ONE ITEM REQUESTS
+    public function getUser(string $id){
+        $sql = "SELECT * FROM _USER WHERE user_id = $id";
+        return $this->fetch($sql);
+    }
+    public function _getUserFavouriteBook(string $id){
         $sql = "SELECT * FROM _FAVOURITE_BOOK WHERE user_id = '$id'";
-        $db = $this->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->fetch($sql);
     }
+
+    public function getBookReviews(string $id){
+        $sql = "SELECT * FROM _REVIEW WHERE book_id = '$id'";
+        return $this->fetch($sql);
+    }
+
+    public function getBook(string $id){
+        $sql = "SELECT * FROM _BOOK WHERE book_id = '$id'";
+        return $this->fetch($sql);
+    }
+ 
 
 
 

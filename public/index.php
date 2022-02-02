@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+
 //////////////////////////////////// SLIM SETUP START //////////////////////////////////////////////
 
 
@@ -60,6 +64,10 @@ $app->get('/addReviews', function ($request, $response, $args) {
     return $this->view->render($response, "addReview.php");
 });
 
+$app->get('/details/{id}', function ($request, $response, $args) {
+    return $this->view->render($response, "details.php");
+});
+
 //////////////////////////////////// HTML RENDERING END //////////////////////////////////////////////
 
 
@@ -74,30 +82,39 @@ $app->get('/addReviews', function ($request, $response, $args) {
 $app->get('/details/screen/{id}', function ($request, $response, $args) {
     $id = $args['id'];
     try {
-        $sql = "SELECT * FROM _BOOK where book_id=:id";
+
         $db = new Db();
+        
+        $bookData = $db->getBook($id);
 
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $bookData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $reviewsData = $db->getBookReviews($id);
 
-        $sql = "SELECT * FROM _REVIEW WHERE book_id=:id";
-        $db = new Db();
+        if(count($reviewsData) > 0){
+            for ($index = 0; $index < count($reviewsData); $index++) {
 
-        $db = $db->connect();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        $reviewsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $reviewUserId = $reviewsData[$index]['user_id'];
+                // $bookUserId = $bookData[0]['user_id'];
+                $userData = $db->getUser($reviewUserId);
+                $userReviewData = array();
+
+                array_push($userReviewData, array(
+                    "userData" => $userData,
+                    "reviewData" => $bookData[0]['book_id'],
+                ));
+            }
+        }else{
+            $userReviewData = [];
+        }
+       
 
         $allData = array(
             "status" => "success",
             "bookDetails" => $bookData,
-            "userReviews" => $reviewsData,
+            "userReviews" => $userReviewData,
         );
+
         echo json_encode($allData);
+
     } catch (PDOException $e) {
         $data = array(
             "status" => "error",
@@ -113,7 +130,7 @@ $app->get('/_book/get', function ($request, $response, $args) {
     try {
 
         $db = new Db();
-        $data = $db->getBook();
+        $data = $db->getBooks();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -152,7 +169,7 @@ $app->get('/_favourite_book/get', function ($request, $response, $args) {
     try {
 
         $db = new Db();
-        $data = $db->getFavouriteBook();
+        $data = $db->getFavouriteBooks();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -168,7 +185,7 @@ $app->get('/_favourite_book/get', function ($request, $response, $args) {
 $app->get('/_review/get', function ($request, $response, $args) {
     try {
         $db = new Db();
-        $data = $db->getReview();
+        $data = $db->getReviews();
 
         echo json_encode($data);
     } catch (PDOException $e) {
@@ -179,6 +196,27 @@ $app->get('/_review/get', function ($request, $response, $args) {
         echo json_encode($data);
     }
 });
+
+
+// $app->get('/_review/book/{id}', function ($request, $response, $args) {
+//         $id = $args['id'];
+//     try {
+
+//         $db = new Db();
+//         $data = $db->getBookReviews($id);
+
+//         all
+
+//         echo json_encode($allData);
+
+//     } catch (PDOException $e) {
+//         $data = array(
+//             "status" => "error",
+//         );
+
+//         echo json_encode($data);
+//     }
+// });
 
 
 $app->get('/_user/get', function ($request, $response, $args) {
@@ -269,6 +307,7 @@ $app->post('/_favourite_book/insert/{id}', function ($request, $response, $args)
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         echo json_encode($data);
     } catch (PDOException $e) {
         $data = array(
@@ -290,8 +329,8 @@ $app->post('/_user/register', function ($request, $response, $args) {
         // this code will choose the right id for the user
         do {
        
-            $fullpostid = getId(); // this is the Post_Id
-            $sql = "SELECT * FROM _USER WHERE user_id ='$fullpostid'";
+            $fulluserid = getId(); // this is the User_Id
+            $sql = "SELECT * FROM _USER WHERE user_id ='$fulluserid'";
             
             $db = new Db();
 
@@ -308,7 +347,7 @@ $app->post('/_user/register', function ($request, $response, $args) {
 
         $db = $db->connect();
         $stmt = $db->prepare($sql);
-        $data = $stmt->execute([$fullpostid, $input['firstname'], 
+        $data = $stmt->execute([$fulluserid, $input['firstname'], 
         $input['lastname'], $input['age'], $input['email'], $input['password'], $userStatus]);
          
         if($data){
@@ -343,9 +382,24 @@ $app->post("/_book/insert", function ($request, $response, array $args) {
 
     try{
         
-        $data = array(
+        $sql = "INSERT INTO _BOOK(book_id, book_title, book_description, book_page, book_author, book_ISBN)
+                 VALUES(?,?,?,?,?,?)";
+
+        $db = new Db();
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);
+        $data = $stmt->execute([getId(), $input['book_title'], $input['book_description'], 
+                               $input['book_page'], $input['book_author'], $input['book_ISBN']]);
+
+        if($data){
+            $data = array(
                 "status" => "success",
             );
+        }else{
+            $data = array(
+                "status" => "error",
+            );
+        }
 
         echo json_encode($data);
     }catch(PDOException $e){
@@ -356,6 +410,37 @@ $app->post("/_book/insert", function ($request, $response, array $args) {
         echo json_encode($data);
     }
 });
+
+
+$app->post("/_review/insert",function ($request, $response, array $args) {
+    $input = $request->getParams();
+    try{
+        $db = new Db();
+        $sql = "";
+        $db = $db->connect();
+        $stmt = $db->prepare($sql);    
+        $data = $stmt->execute([getId(), $input['user_review'], $input['rating'], $input['book_id'], $input['user_id']]);
+
+        if($data){
+            $data = array(
+                "status" => "success",
+            );
+        } else{
+            $data = array(
+                "status" => "error",
+            );
+        }
+        echo json_encode($data);
+
+        echo json_encode($data);
+    }catch(PDOException $e){
+        $data = array(
+            "status" => "error",
+        );
+
+        echo json_encode($data);
+    }
+    });
 
 
 //////////////////////////////////// POST METHODS END //////////////////////////////////////////////
@@ -374,12 +459,12 @@ function getId()
     $str1 = "0123456789ABCDEFGHIGKLMNOPQRSTUVWXYZ";
     $str2 = "0123456789";
     $str3 = "ABCDEFGHIGKLMNOPQRSTUVWXYZ";
-    $postid1 = substr(str_shuffle($str1), 0, 7);
-    $postid2 = substr(str_shuffle($str2), 0, 5);
-    $postid3 = substr(str_shuffle($str3), 0, 1);
-    $postid4 = substr(str_shuffle($str3), 0, 5);
+    $userid1 = substr(str_shuffle($str1), 0, 7);
+    $userid2 = substr(str_shuffle($str2), 0, 5);
+    $userid3 = substr(str_shuffle($str3), 0, 1);
+    $userid4 = substr(str_shuffle($str3), 0, 5);
 
-    return $postid3 . $postid1 . "_" . $postid2 . "_" . $postid4;
+    return $userid3 . $userid1 . "_" . $userid2 . "_" . $userid4;
 }
 
 
