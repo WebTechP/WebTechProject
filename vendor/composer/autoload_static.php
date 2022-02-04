@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInitc7f10ffb2182d4939be579c9311f078b
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -22,6 +22,10 @@ class ComposerStaticInitc7f10ffb2182d4939be579c9311f078b
             'Symfony\\Flex\\' => 13,
             'Slim\\Views\\' => 11,
             'Slim\\' => 5,
+        ),
+        'R' => 
+        array (
+            'RKA\\' => 4,
         ),
         'P' => 
         array (
@@ -58,6 +62,10 @@ class ComposerStaticInitc7f10ffb2182d4939be579c9311f078b
         'Slim\\' => 
         array (
             0 => __DIR__ . '/..' . '/slim/slim/Slim',
+        ),
+        'RKA\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/akrabat/rka-slim-session-middleware/RKA',
         ),
         'Psr\\Http\\Message\\' => 
         array (

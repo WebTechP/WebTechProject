@@ -1,4 +1,7 @@
 {
+    "akrabat/rka-slim-session-middleware": {
+        "version": "2.0.0"
+    },
     "symfony/flex": {
         "version": "2.1",
         "recipe": {

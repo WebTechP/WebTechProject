@@ -11,6 +11,7 @@ return array(
     'Symfony\\Flex\\' => array($vendorDir . '/symfony/flex/src'),
     'Slim\\Views\\' => array($vendorDir . '/slim/twig-view/src'),
     'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
+    'RKA\\' => array($vendorDir . '/akrabat/rka-slim-session-middleware/RKA'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'FastRoute\\' => array($vendorDir . '/nikic/fast-route/src'),

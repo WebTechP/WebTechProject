@@ -47,6 +47,8 @@ class Db
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    // ALL ITEM REQUESTS
     public function getReviews(){
         $sql = "SELECT * FROM _REVIEW";
         return $this->fetch($sql);
@@ -60,29 +62,26 @@ class Db
         $sql = "SELECT * FROM _USER";
         return $this->fetch($sql);
     }
-
     public function getFavouriteBooks(){
-        $sql = "SELECT * FROM _USER";
+        $sql = "SELECT * FROM _FAVOURITE_BOOK";
         return $this->fetch($sql);
     }
 
 
 
-    // ONE ITEM REQUESTS
+    // ONE ID REQUESTS
     public function getUser(string $id){
-        $sql = "SELECT * FROM _USER WHERE user_id = $id";
+        $sql = "SELECT * FROM _USER WHERE user_id = '$id'";
         return $this->fetch($sql);
     }
     public function _getUserFavouriteBook(string $id){
         $sql = "SELECT * FROM _FAVOURITE_BOOK WHERE user_id = '$id'";
         return $this->fetch($sql);
     }
-
     public function getBookReviews(string $id){
         $sql = "SELECT * FROM _REVIEW WHERE book_id = '$id'";
         return $this->fetch($sql);
     }
-
     public function getBook(string $id){
         $sql = "SELECT * FROM _BOOK WHERE book_id = '$id'";
         return $this->fetch($sql);

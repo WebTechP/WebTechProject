@@ -18,7 +18,8 @@ $(window).on("load", function (){
         success: function (data) {
         if(data['status'] == "success"){ 
             book = data['bookDetails'];
-            user = data['userReviews'];
+            userReviews = data['userReviews'];
+       
             $.each(book, function () {
                         bookDetails.append(
                             `
@@ -64,10 +65,10 @@ $(window).on("load", function (){
                             </div>
                             <p class="card-text mt-4"> ${this['book_description']}</p>
                         </div>
-                        <div class="card-body">
+                        <div class="container">
                             <h6 class="card-subtitle mb-2">Reviews</h6>
-                            <ul class="list-group" id='${this['book_id']}'>
-                                ${review(this['book_id'])}
+                            <ul class="col" id='${this['book_id']}'>
+                               
                             </ul>
                         </div>
                     </div>
@@ -75,6 +76,23 @@ $(window).on("load", function (){
                 );
 
             });
+         var userData;
+    var reviewData;
+    $.each(userReviews, function () {
+        userData = this['userData'];
+        reviewData = this['reviewData'];
+        $("#"+id).append(
+            `
+        <div class="card w-100" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">${userData[0]['first_name'] + " " + userData[0]['last_name']} </h5>
+                <p class="card-text">${reviewData['user_review']}</p>
+             
+            </div>
+        </div>
+
+        `);
+    });
 
         }else{ 
 
@@ -85,27 +103,6 @@ $(window).on("load", function (){
 });
 
 
-function review(value){
-    var reviewUrl = "http://localhost:8008/_review/book/"+value;
-    var ;
-    $.ajax({ 
-        url:reviewUrl,
-        data: 'json',
-        contentType: "application/json",
-        async: false,
-        success: function(data){
-            $.each(data, function(){
-                $("#"+value).append(
-                    `
-                          <li class="list-group-item">
-                            <div class="d-flex" style="height: 200px;">
-                                <h4 class=''></h4>
-                                <div class="vr"></div>
-                                </div>
-                          </li>
-                    `
-                )
-            });
-        }
-    });
-};
+function reviews(userReviews, id){
+    
+}

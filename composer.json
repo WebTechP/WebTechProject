@@ -3,7 +3,8 @@
         "slim/slim": "3.*",
         "slim/twig-view": "2.1",
         "alrik11es/cowsayphp": "^1.2",
-        "symfony/flex": "^2.1.4"
+        "symfony/flex": "^2.1.4",
+        "akrabat/rka-slim-session-middleware": "^2.0"
         },
     "config": {
         "allow-plugins": {

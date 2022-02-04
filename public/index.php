@@ -12,12 +12,14 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use SlimBuild\Helper\Password;
 use SlimBuild\Helper\Session;
 use SlimBuild\Model\User;
+use \RKA\SessionMiddleware;
+// use \RKA\Session;
 
 require "../vendor/autoload.php";
 require_once "./db.php";
 
 $app = new \Slim\App;
-
+$app->add(new \RKA\SessionMiddleware(['name' => 'MySessionName']));
 $container = $app->getContainer();
 
 $container['view'] = function ($container) {
@@ -27,7 +29,7 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-
+$session = new \RKA\Session();
 //////////////////////////////////// SLIM SETUP END //////////////////////////////////////////////
 
 
@@ -77,7 +79,26 @@ $app->get('/details/{id}', function ($request, $response, $args) {
 
 
 //////////////////////////////////// GET METHODS START//////////////////////////////////////////////
+$app->get('/session', function ($request, $response) {
+   
 
+    // Get session variable:
+    // $foo = $session->get('foo', 'some-default');
+    $session->set('foo', 'this is a value');
+    echo $session->foo;
+    return $response;
+});
+
+$app->get('/session1', function ($request, $response) {
+    $session = new \RKA\Session();
+
+    // Get session variable:
+    // $foo = $session->get('foo', 'some-default');
+    $session->get('foo');
+    $session->foo = "this is not";
+    echo $session->foo;
+    return $response;
+});
 
 $app->get('/details/screen/{id}', function ($request, $response, $args) {
     $id = $args['id'];
@@ -86,20 +107,24 @@ $app->get('/details/screen/{id}', function ($request, $response, $args) {
         $db = new Db();
         
         $bookData = $db->getBook($id);
-
+        // echo print_r($bookData);
         $reviewsData = $db->getBookReviews($id);
-
+        // echo print_r($reviewsData);
         if(count($reviewsData) > 0){
+            $userReviewData = array();
             for ($index = 0; $index < count($reviewsData); $index++) {
-
+                // echo $reviewsData[$index]['user_id'];
                 $reviewUserId = $reviewsData[$index]['user_id'];
                 // $bookUserId = $bookData[0]['user_id'];
                 $userData = $db->getUser($reviewUserId);
-                $userReviewData = array();
-
+                // echo print_r($userData);c
                 array_push($userReviewData, array(
                     "userData" => $userData,
-                    "reviewData" => $bookData[0]['book_id'],
+                    "reviewData" => $reviewsData[$index],
+                ));
+                array_push($userReviewData, array(
+                    "userData" => $userData,
+                    "reviewData" => $reviewsData[$index],
                 ));
             }
         }else{
@@ -198,25 +223,6 @@ $app->get('/_review/get', function ($request, $response, $args) {
 });
 
 
-// $app->get('/_review/book/{id}', function ($request, $response, $args) {
-//         $id = $args['id'];
-//     try {
-
-//         $db = new Db();
-//         $data = $db->getBookReviews($id);
-
-//         all
-
-//         echo json_encode($allData);
-
-//     } catch (PDOException $e) {
-//         $data = array(
-//             "status" => "error",
-//         );
-
-//         echo json_encode($data);
-//     }
-// });
 
 
 $app->get('/_user/get', function ($request, $response, $args) {
@@ -416,7 +422,8 @@ $app->post("/_review/insert",function ($request, $response, array $args) {
     $input = $request->getParams();
     try{
         $db = new Db();
-        $sql = "";
+        $sql = "INSERT INTO _REVIEW(review_id, user_review, rating, book_id, user_id) 
+                VALUES(?,?,?,?,?)";
         $db = $db->connect();
         $stmt = $db->prepare($sql);    
         $data = $stmt->execute([getId(), $input['user_review'], $input['rating'], $input['book_id'], $input['user_id']]);
@@ -430,9 +437,9 @@ $app->post("/_review/insert",function ($request, $response, array $args) {
                 "status" => "error",
             );
         }
-        echo json_encode($data);
 
         echo json_encode($data);
+
     }catch(PDOException $e){
         $data = array(
             "status" => "error",
@@ -495,5 +502,26 @@ function getId()
 //     return $response;
 // });
 
+
+
+// $app->get('/_review/book/{id}', function ($request, $response, $args) {
+//         $id = $args['id'];
+//     try {
+
+//         $db = new Db();
+//         $data = $db->getBookReviews($id);
+
+//         all
+
+//         echo json_encode($allData);
+
+//     } catch (PDOException $e) {
+//         $data = array(
+//             "status" => "error",
+//         );
+
+//         echo json_encode($data);
+//     }
+// });
 
 //////////////////////////////////// LEGACY CODE END //////////////////////////////////////////////
