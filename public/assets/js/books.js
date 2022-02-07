@@ -27,7 +27,7 @@
             },
             success: function (data) {
                 bookContainer.html('');
-                var books = data;
+                var books = data['books'];
                 length = books.length;
                 $.each(books, function(){
                     bookContainer.append(

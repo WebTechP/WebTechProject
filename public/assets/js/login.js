@@ -81,7 +81,7 @@ $(function () {
         var userData;
         if (data['status'] == 'success') {
           userData = data['userData'];
-          var temp = "http://localhost:8008/index";
+          var temp = "http://localhost:8008/index?first_name=" + userData['first_name'] + "&last_name="+ userData['last_name'];
           window.location.href = temp;
           // $(location).attr('href', '' + temp);
         } else {

@@ -15,6 +15,7 @@ CREATE TABLE _BOOK(
     book_title VARCHAR(256) NOT NULL,
     book_description VARCHAR(65535) NOT NULL,
     book_page INTEGER(21) NOT NULL,
+    book_volume INTEGER(5) DEFAULT 0,
     book_author VARCHAR(256) NOT NULL,
     book_ISBN VARCHAR(256)
 );

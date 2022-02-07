@@ -18,7 +18,12 @@ use \RKA\SessionMiddleware;
 require "../vendor/autoload.php";
 require_once "./db.php";
 
-$app = new \Slim\App;
+$app = new \Slim\App([
+    'settings' => [
+        'displayErrorDetails' => true,
+    ]
+]);
+
 $app->add(new \RKA\SessionMiddleware(['name' => 'MySessionName']));
 $container = $app->getContainer();
 
@@ -29,7 +34,7 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$session = new \RKA\Session();
+
 //////////////////////////////////// SLIM SETUP END //////////////////////////////////////////////
 
 
@@ -78,29 +83,51 @@ $app->get('/details/{id}', function ($request, $response, $args) {
 
 
 
-//////////////////////////////////// GET METHODS START//////////////////////////////////////////////
-$app->get('/session', function ($request, $response) {
-   
 
-    // Get session variable:
-    // $foo = $session->get('foo', 'some-default');
-    $session->set('foo', 'this is a value');
-    echo $session->foo;
-    return $response;
-});
+//////////////////////////////////// TEST START //////////////////////////////////////////////
 
-$app->get('/session1', function ($request, $response) {
+
+// $app->get('/session', function ($request, $response, $args) {
+
+
+//     // Get session variable:
+//     // $foo = $session->get('foo', 'some-default');
+//     $session->set('foo', 'this is a value');
+//     echo $session->foo;
+//     return $response;
+// });
+
+$app->get('/session1', function ($request, $response, $args) {
     $session = new \RKA\Session();
 
     // Get session variable:
     // $foo = $session->get('foo', 'some-default');
     $session->get('foo');
     $session->foo = "this is not";
-    echo $session->foo;
+    echo $session->user;
     return $response;
 });
 
+
+
+
+
+
+
+//////////////////////////////////// TEST END //////////////////////////////////////////////
+
+
+
+
+
+
+
+
+//////////////////////////////////// GET METHODS START//////////////////////////////////////////////
+
+
 $app->get('/details/screen/{id}', function ($request, $response, $args) {
+    $session = new \RKA\Session();
     $id = $args['id'];
     try {
 
@@ -122,16 +149,27 @@ $app->get('/details/screen/{id}', function ($request, $response, $args) {
                     "userData" => $userData,
                     "reviewData" => $reviewsData[$index],
                 ));
-                array_push($userReviewData, array(
-                    "userData" => $userData,
-                    "reviewData" => $reviewsData[$index],
-                ));
             }
         }else{
             $userReviewData = [];
         }
        
-
+        if(isset($session->user)){
+            $allData = array(
+                "status" => "success",
+                "bookDetails" => $bookData,
+                "userReviews" => $userReviewData,
+                "userLogin" => true,
+                "userData" => json_decode($session->user),
+            );      
+        }else{
+            $allData = array(
+                "status" => "success",
+                "bookDetails" => $bookData,
+                "userReviews" => $userReviewData,
+                "userLogin" => false,
+            );      
+        }
         $allData = array(
             "status" => "success",
             "bookDetails" => $bookData,
@@ -152,12 +190,30 @@ $app->get('/details/screen/{id}', function ($request, $response, $args) {
 
 
 $app->get('/_book/get', function ($request, $response, $args) {
+    $session = new \RKA\Session();
+    
     try {
-
+        
         $db = new Db();
         $data = $db->getBooks();
+        if(isset($session->user)){
+            $allData = array(
+                "status" => "success",
+                "books" => $data,
+                "userLogin" => true,
+                "userData" => json_decode($session->user),
+            );
+            echo json_encode($allData);
+        }else{
+            $allData = array(
+                "status" => "success",
+                "userFalse"=> false,
+                "books" => $data,
+            );
 
-        echo json_encode($data);
+            echo json_encode($allData);
+        }
+        
     } catch (PDOException $e) {
         $data = array(
             "status" => "error",
@@ -168,6 +224,8 @@ $app->get('/_book/get', function ($request, $response, $args) {
 });
 
 $app->get('/_book/get/limits', function ($request, $response, $args) {
+    $session = new \RKA\Session();
+
     $input = $request->getQueryParams();
     $limit = $input['limit'];
     $offset = $input['offset'];
@@ -179,8 +237,23 @@ $app->get('/_book/get/limits', function ($request, $response, $args) {
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (isset($session->user)) {
+            $allData = array(
+                "status" => "success",
+                "books" => $data,
+                "userLogin" => true,
+                "userData" => json_decode($session->user),
+            );
+            echo json_encode($allData);
+        } else {
+            $allData = array(
+                "status" => "success",
+                "userLogin" => false,
+                "books" => $data,
+            );
 
-        echo json_encode($data);
+            echo json_encode($allData);
+        }
     } catch (PDOException $e) {
         $data = array(
             "status" => "error",
@@ -248,12 +321,17 @@ $app->get('/_user/get', function ($request, $response, $args) {
 
 
 $app->get('/_user/login', function ($request, $response, $args) {
+    
+    $session = new \RKA\Session();
+
     $input = $request->getParams();
     $pass = $input['password'];
-    $email = $input['email']; 
+    $email = $input['email'];
+ 
     try {
 
         $sql = "SELECT * FROM _USER where user_pass = '$pass' AND email_address='$email'";
+       
         $db = new Db();
 
         $db = $db->connect();
@@ -266,6 +344,11 @@ $app->get('/_user/login', function ($request, $response, $args) {
             "status" => "success",
             "userData" => $userData,
                 );
+
+            $session->set('user', json_encode($userData));
+            
+            echo $session->get('user');
+            
             echo json_encode($data);
         }else{
             $data = array(
